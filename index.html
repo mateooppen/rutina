@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Rutina Tracker</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏋️</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+  <h1>🏋️ Rutina Tracker</h1>
+  <div class="sub">4 días · Fuerza y tonificación · Tracker Semanal</div>
+</div>
+
+<div class="tracker-card" id="trackerCard"></div>
+
+<div class="history-section" id="historySection"></div>
+
+<div class="reset-wrap">
+  <button class="reset-btn" onclick="showReset()">Reiniciar todo el progreso</button>
+</div>
+
+<div id="routineSection"></div>
+<div id="glossarySection"></div>
+
+<div class="overlay" id="overlay">
+  <div class="overlay-box">
+    <h3>¿Reiniciar progreso?</h3>
+    <p>Se borrará el historial de todas las semanas. Esta acción no se puede deshacer.</p>
+    <div class="overlay-btns">
+      <button onclick="hideReset()">Cancelar</button>
+      <button class="btn-danger" onclick="doReset()">Reiniciar</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
