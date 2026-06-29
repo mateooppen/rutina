@@ -305,7 +305,7 @@ body {
   display: none;
   margin-bottom: 16px;
 }
-.section-content.open { display: block; }
+.section-toggle.open + .section-content { display: block; }
 
 /* === DAY CARD === */
 .day-card {
@@ -392,7 +392,8 @@ body {
 }
 .ex-name { font-weight: 600; flex: 1 1 100%; display: flex; justify-content: space-between; align-items: center; }
 .ex-name::after { content: '▾'; font-size: 10px; color: var(--text-light); transition: var(--transition); }
-.ex-item-wrap.active .ex-name::after { transform: rotate(180deg); color: var(--accent); }
+.ex-item-wrap.open .ex-name::after { transform: rotate(180deg); color: var(--accent); }
+.ex-item-wrap.open .ex-tech-drawer { display: block; }
 .ex-detail { font-size: 12px; color: var(--text-muted); }
 
 /* table for main block */
@@ -422,7 +423,9 @@ body {
 .ex-table .td-name { font-weight: 600; min-width: 100px; display: flex; justify-content: space-between; align-items: center; }
 .ex-table .td-name-text { flex: 1; min-width: 0; }
 .ex-table .td-name::after { content: '▾'; font-size: 9px; color: var(--text-light); margin-left: 4px; }
-.ex-table tr.clickable-row.active .td-name::after { transform: rotate(180deg); color: var(--accent); }
+.ex-table tr.clickable-row.open .td-name::after { transform: rotate(180deg); color: var(--accent); }
+.ex-table tr.ex-drawer-row { display: none; }
+.ex-table tr.clickable-row.open + tr.ex-drawer-row { display: table-row; }
 
 /* === DETALLE DE TÉCNICA (INTERACTIVO) === */
 .ex-tech-drawer {

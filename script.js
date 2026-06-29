@@ -368,7 +368,7 @@ function auditMedia() {
 
 function renderRoutine() {
   let html = `
-    <div class="section-toggle" onclick="toggleSection('routineContent', this)">
+    <div class="section-toggle" data-acc data-acc-group="sections" data-acc-head>
       <span class="st-title">📋 Rutina Completa</span>
       <span class="arrow">▼</span>
     </div>
@@ -376,8 +376,8 @@ function renderRoutine() {
 
   routine.forEach((day, idx) => {
     html += `
-      <div class="day-card" id="dayCard${idx}">
-        <div class="day-card-header" onclick="toggleDayCard(${idx})">
+      <div class="day-card" id="dayCard${idx}" data-acc data-acc-group="days">
+        <div class="day-card-header" data-acc-head>
           <div class="dch-left">
             <div class="dch-title">Día ${day.short} — ${day.dayLabel}</div>
             <div class="dch-sub">${day.focus} · ${day.dur}</div>
@@ -394,8 +394,8 @@ function renderRoutine() {
             <ul class="ex-list">`;
     day.warmup.exercises.forEach((e, eIdx) => { 
       html += `
-        <li class="ex-item-wrap" id="w-wrap-${idx}-${eIdx}">
-          <div class="ex-header-click" onclick="toggleExDetail(${idx}, 'warmup', ${eIdx})">
+        <li class="ex-item-wrap" id="w-wrap-${idx}-${eIdx}" data-acc data-acc-group="ex-${idx}">
+          <div class="ex-header-click" data-acc-head>
             <span class="ex-name">${e.name}</span>
             <span class="ex-detail">${e.sets} · <span style="color:var(--text-light)">${e.note}</span></span>
           </div>
@@ -419,13 +419,13 @@ function renderRoutine() {
       </tr></thead><tbody>`;
       day.main.exercises.forEach((e, eIdx) => {
         html += `
-        <tr class="clickable-row" id="m-row-${idx}-${eIdx}" onclick="toggleExDetail(${idx}, 'mainTable', ${eIdx})">
+        <tr class="clickable-row" id="m-row-${idx}-${eIdx}" data-acc data-acc-group="ex-${idx}" data-acc-head>
           <td class="td-name"><span class="td-name-text">${ssBadge(e)}${e.name}</span></td>
           <td>${e.sets}</td>
           <td><span class="tag tag-rir">${e.rir}</span></td>
           <td><span class="tag tag-rest">${e.rest}</span></td>
         </tr>
-        <tr id="m-drawer-row-${idx}-${eIdx}" style="display:none;"><td colspan="4">
+        <tr class="ex-drawer-row" id="m-drawer-row-${idx}-${eIdx}"><td colspan="4">
           <div class="ex-tech-drawer" style="display:block; margin: 0; border-left-color: var(--blue);">
             <h5>💡 Ejecución Técnica</h5>
             ${variantDrawerHTML(e, `m-${idx}-${eIdx}`)}
@@ -437,8 +437,8 @@ function renderRoutine() {
       html += '<ul class="ex-list">';
       day.main.exercises.forEach((e, eIdx) => {
         html += `
-        <li class="ex-item-wrap" id="m-wrap-${idx}-${eIdx}">
-          <div class="ex-header-click" onclick="toggleExDetail(${idx}, 'mainList', ${eIdx})">
+        <li class="ex-item-wrap" id="m-wrap-${idx}-${eIdx}" data-acc data-acc-group="ex-${idx}">
+          <div class="ex-header-click" data-acc-head>
             <span class="ex-name">${e.name}</span>
             <span class="ex-detail">${e.sets} · <span style="color:var(--text-light)">${e.note}</span></span>
           </div>
@@ -460,8 +460,8 @@ function renderRoutine() {
             <ul class="ex-list">`;
     day.cool.exercises.forEach((e, eIdx) => { 
       html += `
-        <li class="ex-item-wrap" id="c-wrap-${idx}-${eIdx}">
-          <div class="ex-header-click" onclick="toggleExDetail(${idx}, 'cool', ${eIdx})">
+        <li class="ex-item-wrap" id="c-wrap-${idx}-${eIdx}" data-acc data-acc-group="ex-${idx}">
+          <div class="ex-header-click" data-acc-head>
             <span class="ex-name">${e.name}</span>
             <span class="ex-detail">${e.sets} · <span style="color:var(--text-light)">${e.note}</span></span>
           </div>
@@ -486,29 +486,26 @@ function renderRoutine() {
   document.getElementById('routineSection').innerHTML = html;
 }
 
-function toggleExDetail(dayIdx, blockType, exIdx) {
-  if (blockType === 'warmup') {
-    const wrap = document.getElementById(`w-wrap-${dayIdx}-${exIdx}`);
-    const drawer = document.getElementById(`w-tech-${dayIdx}-${exIdx}`);
-    const isActive = wrap.classList.toggle('active');
-    drawer.style.display = isActive ? 'block' : 'none';
-  } else if (blockType === 'cool') {
-    const wrap = document.getElementById(`c-wrap-${dayIdx}-${exIdx}`);
-    const drawer = document.getElementById(`c-tech-${dayIdx}-${exIdx}`);
-    const isActive = wrap.classList.toggle('active');
-    drawer.style.display = isActive ? 'block' : 'none';
-  } else if (blockType === 'mainList') {
-    const wrap = document.getElementById(`m-wrap-${dayIdx}-${exIdx}`);
-    const drawer = document.getElementById(`m-tech-${dayIdx}-${exIdx}`);
-    const isActive = wrap.classList.toggle('active');
-    drawer.style.display = isActive ? 'block' : 'none';
-  } else if (blockType === 'mainTable') {
-    const row = document.getElementById(`m-row-${dayIdx}-${exIdx}`);
-    const drawerRow = document.getElementById(`m-drawer-row-${dayIdx}-${exIdx}`);
-    const isActive = row.classList.toggle('active');
-    drawerRow.style.display = isActive ? 'table-row' : 'none';
+// === ACCORDION (componente único) ===
+// Cada colapsable lleva `data-acc` y `data-acc-group="<grupo>"`; su disparador,
+// `data-acc-head`. Abrir un item cierra los demás del mismo grupo (exclusivo).
+// La visibilidad del panel la resuelve el CSS según la clase `open` del item.
+// Grupos: 'sections', 'days' y 'ex-<dayIdx>' (un grupo por día → exclusividad por día).
+function accToggle(item) {
+  const group = item.getAttribute('data-acc-group');
+  const willOpen = !item.classList.contains('open');
+  if (group) {
+    document.querySelectorAll(`[data-acc-group="${group}"].open`).forEach(el => el.classList.remove('open'));
   }
+  if (willOpen) item.classList.add('open');
 }
+
+document.addEventListener('click', (e) => {
+  const head = e.target.closest('[data-acc-head]');
+  if (!head) return;
+  const item = head.closest('[data-acc]');
+  if (item) accToggle(item);
+});
 
 // Intercambia entre el ejercicio principal y su alternativa dentro del drawer.
 function switchVariant(uid, showAlt) {
@@ -520,7 +517,7 @@ function switchVariant(uid, showAlt) {
 
 function renderGlossary() {
   document.getElementById('glossarySection').innerHTML = `
-    <div class="section-toggle" onclick="toggleSection('glossaryContent', this)">
+    <div class="section-toggle" data-acc data-acc-group="sections" data-acc-head>
       <span class="st-title">📖 Glosario de Términos</span>
       <span class="arrow">▼</span>
     </div>
@@ -566,16 +563,6 @@ function renderGlossary() {
         </div>
       </div>
     </div>`;
-}
-
-function toggleSection(id, btn) {
-  const el = document.getElementById(id);
-  el.classList.toggle('open');
-  btn.classList.toggle('open');
-}
-
-function toggleDayCard(idx) {
-  document.getElementById('dayCard' + idx).classList.toggle('open');
 }
 
 // Validación de consistencia (solo desarrollo): avisa por consola si a algún día
