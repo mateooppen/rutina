@@ -14,16 +14,18 @@
   <div class="sub">3 días · Full body · Acondicionamiento general</div>
 </div>
 
-<div class="tracker-card" id="trackerCard"></div>
+<section id="tab-rutina" class="tab-panel active">
+  <div id="routineSection"></div>
+</section>
 
-<div class="history-section" id="historySection"></div>
-
-<div class="reset-wrap">
-  <button class="reset-btn" onclick="showReset()">Reiniciar todo el progreso</button>
-</div>
-
-<div id="routineSection"></div>
-<div id="glossarySection"></div>
+<section id="tab-progreso" class="tab-panel" hidden>
+  <div class="tracker-card" id="trackerCard"></div>
+  <div class="history-section" id="historySection"></div>
+  <div class="reset-wrap">
+    <button class="reset-btn" onclick="showReset()">Reiniciar todo el progreso</button>
+  </div>
+  <div id="glossarySection"></div>
+</section>
 
 <div class="overlay" id="overlay">
   <div class="overlay-box">
@@ -35,6 +37,17 @@
     </div>
   </div>
 </div>
+
+<nav class="bottomnav">
+  <button class="navbtn active" data-tab="rutina">
+    <span class="navbtn-icon">🏋️</span>
+    <span class="navbtn-label">Rutina</span>
+  </button>
+  <button class="navbtn" data-tab="progreso">
+    <span class="navbtn-icon">📊</span>
+    <span class="navbtn-label">Progreso</span>
+  </button>
+</nav>
 
 <script src="script.js"></script>
 </body>
