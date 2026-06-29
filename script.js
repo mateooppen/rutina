@@ -366,32 +366,43 @@ function auditMedia() {
   return s.pending;
 }
 
+// Línea de descripción atenuada de un ejercicio. Principal: "sets · RIR · rest";
+// calentamiento/calma: "sets · nota". Filtra valores vacíos o "—".
+function metaText(e, isMain) {
+  const parts = isMain ? [e.sets, e.rir, e.rest] : [e.sets, e.note];
+  return parts.filter(p => p && p !== '—').join(' · ');
+}
+
+// Fila plana de ejercicio (mismo componente para principal y calentamiento/calma).
+// Nombre en acento + descripción atenuada + chevron a la derecha; el detalle
+// (pasos + toggle alternativa + tip + imagen) se despliega debajo, sin cajas.
+function exRowHTML(e, dayIdx, eIdx, prefix, isMain) {
+  return `
+            <div class="ex" data-acc data-acc-group="ex-${dayIdx}">
+              <div class="ex-head" data-acc-head>
+                <div class="ex-gr">
+                  <div class="ex-name">${ssBadge(e)}${e.name}</div>
+                  <div class="ex-meta">${metaText(e, isMain)}</div>
+                </div>
+                <span class="chev" aria-hidden="true">▾</span>
+              </div>
+              <div class="ex-body">${variantDrawerHTML(e, `${prefix}-${dayIdx}-${eIdx}`)}</div>
+            </div>`;
+}
+
 // Subsección plegable secundaria (calentamiento / vuelta a la calma).
 // Grupo propio por día (wu-/cd-) → togglea independiente. Los ejercicios internos
 // usan el grupo del día (ex-<idx>) para la exclusividad del detalle.
 function subBlockHTML(block, icon, title, group, dayIdx, prefix) {
   let items = '';
-  block.exercises.forEach((e, eIdx) => {
-    items += `
-              <li class="ex-item-wrap" data-acc data-acc-group="ex-${dayIdx}">
-                <div class="ex-header-click" data-acc-head>
-                  <span class="ex-name">${e.name}</span>
-                  <span class="ex-detail">${e.sets} · <span style="color:var(--text-light)">${e.note}</span></span>
-                </div>
-                <div class="ex-tech-drawer">
-                  <h5>💡 Ejecución Técnica</h5>
-                  ${variantDrawerHTML(e, `${prefix}-${dayIdx}-${eIdx}`)}
-                </div>
-              </li>`;
-  });
+  block.exercises.forEach((e, eIdx) => { items += exRowHTML(e, dayIdx, eIdx, prefix, false); });
   return `
           <div class="subblock" data-acc data-acc-group="${group}">
             <div class="subblock-head" data-acc-head>
-              <span class="subblock-title">${icon} ${title}</span>
-              <span class="subblock-meta">${block.meta} · ${block.exercises.length} ej.</span>
-              <span class="subblock-chev">▾</span>
+              <span class="subblock-title">${icon} ${title} · ${block.meta}</span>
+              <span class="chev" aria-hidden="true">▾</span>
             </div>
-            <div class="subblock-body"><ul class="ex-list">${items}</ul></div>
+            <div class="subblock-body">${items}</div>
           </div>`;
 }
 
@@ -399,53 +410,25 @@ function renderRoutine() {
   let html = '';
 
   routine.forEach((day, idx) => {
+    let main = '';
+    day.main.exercises.forEach((e, eIdx) => { main += exRowHTML(e, idx, eIdx, 'm', true); });
+
     html += `
-      <div class="day-card" id="dayCard${idx}" data-acc data-acc-group="days">
-        <div class="day-card-header" data-acc-head>
-          <div class="dch-left">
-            <div class="dch-title">Día ${day.short} — ${day.dayLabel}</div>
-            <div class="dch-sub">${day.focus} · ${day.dur}</div>
+      <div class="day" id="dayCard${idx}" data-acc data-acc-group="days">
+        <div class="day-head" data-acc-head>
+          <div class="day-gr">
+            <div class="day-title">Día ${day.short} — ${day.dayLabel}</div>
+            <div class="day-sub">${day.focus} · ${day.dur}</div>
           </div>
-          <span class="dch-arrow">▼</span>
+          <span class="chev" aria-hidden="true">▾</span>
         </div>
-        <div class="day-card-body">`;
-
-    // calentamiento (secundario, plegado)
-    html += subBlockHTML(day.warmup, '🔥', 'Entrada en calor', `wu-${idx}`, idx, 'w');
-
-    // bloque principal (protagonista)
-    html += `
-          <div class="main-block">
-            <div class="main-block-head">
-              <span class="main-block-title">💪 Bloque principal</span>
-              <span class="main-block-meta">${day.main.meta}</span>
-            </div>`;
-    day.main.exercises.forEach((e, eIdx) => {
-      html += `
-            <div class="ex-card" data-acc data-acc-group="ex-${idx}">
-              <div class="ex-card-head" data-acc-head>
-                <div class="ex-card-main">
-                  <div class="ex-card-name">${ssBadge(e)}${e.name}</div>
-                  <div class="ex-card-meta">
-                    <span class="chip">${e.sets}</span>
-                    <span class="tag tag-rir">${e.rir}</span>
-                    <span class="tag tag-rest">${e.rest}</span>
-                  </div>
-                </div>
-                <span class="ex-card-toggle" role="button" aria-label="Ver técnica">▾</span>
-              </div>
-              <div class="ex-tech-drawer">
-                <h5>💡 Ejecución Técnica</h5>
-                ${variantDrawerHTML(e, `m-${idx}-${eIdx}`)}
-              </div>
-            </div>`;
-    });
-    html += '</div>'; // .main-block
-
-    // vuelta a la calma (secundaria, plegada)
-    html += subBlockHTML(day.cool, '🧊', 'Vuelta a la calma', `cd-${idx}`, idx, 'c');
-
-    html += '</div></div>'; // .day-card-body + .day-card
+        <div class="day-body">
+          ${subBlockHTML(day.warmup, '🔥', 'Entrada en calor', `wu-${idx}`, idx, 'w')}
+          <div class="seclbl">Bloque principal</div>
+          ${main}
+          ${subBlockHTML(day.cool, '🧊', 'Vuelta a la calma', `cd-${idx}`, idx, 'c')}
+        </div>
+      </div>`;
   });
 
   document.getElementById('routineSection').innerHTML = html;
@@ -460,7 +443,7 @@ function openNextPendingDay() {
   if (idx < 0) idx = 0;
   const card = document.getElementById('dayCard' + idx);
   if (!card) return;
-  document.querySelectorAll('.day-card.open').forEach(c => c.classList.remove('open'));
+  document.querySelectorAll('.day.open').forEach(c => c.classList.remove('open'));
   card.classList.add('open');
 }
 
@@ -477,8 +460,8 @@ function accToggle(item) {
   }
   if (willOpen) {
     item.classList.add('open');
-    // Al abrir un día, llevar su tarjeta al inicio para no quedar a mitad de pantalla.
-    if (item.classList.contains('day-card')) {
+    // Al abrir un día, llevar su fila al inicio para no quedar a mitad de pantalla.
+    if (item.classList.contains('day')) {
       requestAnimationFrame(() => item.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     }
   }

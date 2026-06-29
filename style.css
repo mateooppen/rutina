@@ -1,73 +1,63 @@
 
 :root {
-  --bg: #f5f3ef;
+  --bg: #ffffff;
   --bg-card: #ffffff;
-  --bg-card-alt: #faf9f7;
-  --text: #1a1a1a;
-  --text-muted: #6b6560;
-  --text-light: #9a948e;
-  --border: #e8e4de;
-  --border-light: #f0ece6;
-  --accent: #c45d3e;
-  --accent-light: #f8ece8;
-  --accent-dark: #a14a30;
-  --green: #3a8a5c;
-  --green-light: #e8f5ee;
-  --green-dark: #2d6e48;
-  --blue: #3d6b9e;
-  --blue-light: #e8f0fa;
-  --purple: #7a5aa6;
-  --purple-light: #f0ebf6;
-  --yellow: #c49a2e;
-  --yellow-light: #fdf6e3;
-  --warmup-bg: #fef9f0;
-  --warmup-border: #f0dfc0;
-  --main-bg: #f0f5fa;
-  --main-border: #c8d8ea;
-  --cooldown-bg: #f0faf4;
-  --cooldown-border: #c0e0cc;
-  --note-bg: #fff8e8;
-  --note-border: #f0dfa0;
+  --bg-card-alt: #f4f5f8;
+  --band: #f1f0fb;
+  --text: #14171f;
+  --text-muted: #6f7585;
+  --text-light: #aab0bc;
+  --border: #ebedf1;
+  --border-light: #f2f3f6;
+  --accent: #4f46e5;
+  --accent-light: #edecfc;
+  --accent-dark: #4035c4;
+  --green: #16a34a;
+  --green-light: #e7f6ee;
+  --green-dark: #15803d;
+  --blue: #2563eb;
+  --blue-light: #e6effc;
+  --purple: #7c3aed;
+  --purple-light: #f0ebfe;
+  --yellow: #b7791f;
+  --yellow-light: #fdf3e3;
+  --note-bg: #f7f8fa;
+  --note-border: #e7e9ef;
   --radius: 12px;
-  --radius-sm: 8px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --radius-sm: 10px;
+  --shadow: 0 1px 2px rgba(20,23,31,0.05);
+  --shadow-md: 0 6px 20px rgba(20,23,31,0.10);
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  --transition: 0.2s ease;
+  --transition: 0.18s ease;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #131210;
-    --bg-card: #1e1d1a;
-    --bg-card-alt: #252420;
-    --text: #e8e4de;
-    --text-muted: #9a948e;
-    --text-light: #6b6560;
-    --border: #333028;
-    --border-light: #2a2820;
-    --accent: #e07050;
-    --accent-light: #2e1e18;
-    --accent-dark: #f08060;
-    --green: #5cb87a;
-    --green-light: #1a2e20;
-    --green-dark: #70d090;
-    --blue: #6a9ed4;
-    --blue-light: #1a2530;
-    --purple: #a080d0;
-    --purple-light: #201828;
-    --yellow: #d4b040;
-    --yellow-light: #28220e;
-    --warmup-bg: #221e14;
-    --warmup-border: #3a3420;
-    --main-bg: #18202a;
-    --main-border: #2a3848;
-    --cooldown-bg: #142218;
-    --cooldown-border: #203828;
-    --note-bg: #262010;
-    --note-border: #3a3418;
-    --shadow: 0 1px 3px rgba(0,0,0,0.3);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+    --bg: #14161c;
+    --bg-card: #181b22;
+    --bg-card-alt: #1b1e26;
+    --band: #1c1e2d;
+    --text: #eceef4;
+    --text-muted: #969cab;
+    --text-light: #5f6573;
+    --border: #262932;
+    --border-light: #20232b;
+    --accent: #9097f9;
+    --accent-light: #23253b;
+    --accent-dark: #a5abff;
+    --green: #4ade80;
+    --green-light: #15241b;
+    --green-dark: #86efac;
+    --blue: #6a9ef0;
+    --blue-light: #16233a;
+    --purple: #a78bfa;
+    --purple-light: #231b3a;
+    --yellow: #d6a83a;
+    --yellow-light: #2a2410;
+    --note-bg: #1b1e26;
+    --note-border: #262932;
+    --shadow: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-md: 0 6px 20px rgba(0,0,0,0.5);
   }
 }
 
@@ -289,9 +279,9 @@ body {
   padding: 4px 10px;
   border-radius: 20px;
   background: var(--green-light);
-  color: var(--green);
+  color: var(--green-dark);
   font-weight: 600;
-  border: 1px solid var(--cooldown-border);
+  border: 1px solid var(--green-light);
 }
 .chip.partial {
   background: var(--yellow-light);
@@ -348,248 +338,133 @@ body {
 }
 .section-toggle.open + .section-content { display: block; }
 
-/* === DAY CARD === */
-.day-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  margin-bottom: 8px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-.day-card-header {
-  padding: 14px 16px;
-  min-height: 56px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  -webkit-tap-highlight-color: transparent;
-}
-.day-card-header:active { background: var(--bg-card-alt); }
-.dch-left { flex: 1; min-width: 0; }
-.dch-title {
-  font-size: 16px;
-  font-weight: 700;
-}
-.dch-sub {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 1px;
-}
-.dch-arrow {
-  font-size: 15px;
-  color: var(--text-muted);
-  transition: transform 0.2s;
-}
-.day-card.open .dch-arrow { transform: rotate(180deg); }
-.day-card-body {
-  display: none;
-  padding: 0 16px 16px;
-}
-.day-card.open .day-card-body { display: block; }
+/* === RUTINA: LISTA PLANA (sin tarjetas, división solo vertical) === */
 
-/* === BLOQUE PRINCIPAL (protagonista) === */
-.main-block { margin: 4px 0 12px; }
-.main-block-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-.main-block-title {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--accent);
-}
-.main-block-meta { font-size: 11px; color: var(--text-muted); font-style: italic; text-align: right; }
-
-/* tarjeta de ejercicio principal */
-.ex-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  margin-bottom: 8px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-.ex-card-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 12px 12px 14px;
-  min-height: 56px;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-.ex-card-head:active { background: var(--bg-card-alt); }
-.ex-card-main { flex: 1; min-width: 0; }
-.ex-card-name { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-.ex-card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-.chip {
-  font-size: 12px;
-  font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 6px;
-  background: var(--bg-card-alt);
-  border: 1px solid var(--border);
-  color: var(--text);
-}
-/* botón de ícono para desplegar la técnica (reemplaza el texto "Ver técnica") */
-.ex-card-toggle {
+/* chevron compartido por día / subsección / ejercicio, siempre al borde derecho */
+.chev {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--accent-light);
-  color: var(--accent);
-  font-size: 18px;
-  line-height: 1;
-  transition: transform 0.2s;
+  color: var(--text-light);
+  font-size: 16px;
+  transition: transform 0.2s, color 0.2s;
 }
-.ex-card.open .ex-card-toggle { transform: rotate(180deg); }
-.ex-card.open .ex-tech-drawer { display: block; }
+[data-acc].open > [data-acc-head] .chev { transform: rotate(180deg); color: var(--accent); }
 
-/* === SUBSECCIONES SECUNDARIAS (calentamiento / vuelta a la calma) === */
-.subblock { margin-bottom: 8px; }
+/* día = encabezado de grupo sobre una franja tenue */
+.day { border-bottom: 1px solid var(--border); }
+.day-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--band);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.day.open .day-head { border-bottom: 1px solid var(--border); }
+.day-gr { flex: 1; min-width: 0; }
+.day-title { font-size: 16px; font-weight: 500; color: var(--text); }
+.day-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.day-body { display: none; }
+.day.open .day-body { display: block; }
+
+/* etiqueta de sección (bloque principal) */
+.seclbl {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 15px 18px 5px;
+}
+
+/* fila de ejercicio (principal y calentamiento/calma) */
+.ex { border-bottom: 1px solid var(--border); }
+.ex-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px;
+  min-height: 56px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.ex-head:active { background: var(--bg-card-alt); }
+.ex-gr { flex: 1; min-width: 0; }
+.ex-name { font-size: 15px; font-weight: 500; color: var(--accent); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.ex-meta { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
+.ex-body { display: none; padding: 2px 18px 16px; }
+.ex.open .ex-body { display: block; }
+
+/* subsección plegable (calentamiento / vuelta a la calma) */
+.subblock { border-bottom: 1px solid var(--border); }
 .subblock-head {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  min-height: 46px;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-sm);
-  background: var(--bg-card-alt);
+  gap: 10px;
+  padding: 12px 18px;
+  min-height: 48px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.subblock-head:active { border-color: var(--border); background: var(--border-light); }
-.subblock-title { font-size: 13px; font-weight: 600; color: var(--text-muted); }
-.subblock-meta { font-size: 12px; color: var(--text-light); }
-.subblock-chev { margin-left: auto; font-size: 14px; color: var(--text-muted); transition: transform 0.2s; }
-.subblock.open .subblock-chev { transform: rotate(180deg); }
-.subblock-body { display: none; padding: 4px 10px 0; }
+.subblock-head:active { background: var(--bg-card-alt); }
+.subblock.open .subblock-head { border-bottom: 1px solid var(--border); }
+.subblock-title { flex: 1; font-size: 13px; font-weight: 500; color: var(--text-muted); }
+.subblock-body { display: none; }
 .subblock.open .subblock-body { display: block; }
 
-/* exercise list */
-.ex-list { list-style: none; }
-.ex-list li.ex-item-wrap {
-  border-bottom: 1px solid var(--border-light);
-  padding: 4px 0;
-}
-.ex-list li.ex-item-wrap:last-child { border-bottom: none; }
+/* sin doble línea: el último ítem de un grupo no lleva su propio divisor */
+.subblock-body .ex:last-child { border-bottom: none; }
+.day-body > .subblock:last-child { border-bottom: none; }
 
-.ex-header-click {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 8px;
-  align-items: baseline;
-  cursor: pointer;
-  padding: 9px 0;
-  -webkit-tap-highlight-color: transparent;
-}
-.ex-name { font-size: 14px; font-weight: 600; flex: 1 1 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.ex-name::after { content: '▾'; font-size: 14px; color: var(--text-muted); transition: var(--transition); }
-.ex-item-wrap.open .ex-name::after { transform: rotate(180deg); color: var(--accent); }
-.ex-item-wrap.open .ex-tech-drawer { display: block; }
-.ex-detail { font-size: 12px; color: var(--text-muted); }
-
-/* === DETALLE DE TÉCNICA (INTERACTIVO) === */
-.ex-tech-drawer {
-  display: none;
-  padding: 12px;
-  background: var(--bg-card-alt);
-  border-radius: var(--radius-sm);
-  margin: 6px 0 10px;
-  border-left: 3px solid var(--accent);
-  font-size: 12px;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
-}
-.ex-tech-drawer h5 {
-  font-size: 11px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 4px;
-  letter-spacing: 0.3px;
-}
+/* === DETALLE EXPANDIDO (plano, sin cajas) === */
 .ex-tech-steps {
-  padding-left: 14px;
+  margin: 0;
+  padding-left: 19px;
   color: var(--text);
-  margin-bottom: 8px;
+  font-size: 13px;
+  line-height: 1.55;
 }
-.ex-tech-steps li {
-  margin-bottom: 4px;
-}
+.ex-tech-steps li { margin-bottom: 6px; }
 .ex-media-box {
-  background: var(--border-light);
-  border: 1px dashed var(--border);
-  border-radius: var(--radius-sm);
   aspect-ratio: 3 / 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  font-size: 11px;
-  text-align: center;
+  border-radius: 12px;
   overflow: hidden;
-  position: relative;
+  background: var(--bg-card-alt);
+  margin-top: 13px;
 }
-.ex-media-box.has-media { border-style: solid; border-color: var(--border); background: #ffffff; }
-.ex-media-box span.icon {
-  font-size: 20px;
-  margin-bottom: 4px;
-}
-.ex-media-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
+.ex-media-box img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-.tag {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 5px;
-  letter-spacing: 0.3px;
-}
-.tag-rir { background: var(--purple-light); color: var(--purple); }
-.tag-rest { background: var(--blue-light); color: var(--blue); }
+/* badge de superserie en el nombre del ejercicio */
+.tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 7px; border-radius: 6px; letter-spacing: 0.2px; }
 .tag-ss { background: var(--accent-light); color: var(--accent); }
 
-/* toggle Principal / Alternativa (dentro del drawer de técnica) */
-.ex-toggle { display: flex; gap: 6px; margin-bottom: 10px; }
+/* toggle Principal / Alternativa (control segmentado) */
+.ex-toggle { display: flex; background: var(--bg-card-alt); border-radius: 10px; padding: 3px; margin: 6px 0 14px; }
 .ex-toggle-btn {
   flex: 1;
-  min-height: 44px;
-  padding: 10px 8px;
+  min-height: 40px;
+  padding: 8px;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500;
   font-family: var(--font);
-  border: 1px solid var(--border);
-  background: var(--bg-card);
+  border: none;
+  background: none;
   color: var(--text-muted);
-  border-radius: var(--radius-sm);
+  border-radius: 8px;
   cursor: pointer;
   transition: var(--transition);
   -webkit-tap-highlight-color: transparent;
 }
-.ex-toggle-btn:active { border-color: var(--accent); color: var(--text); }
-.ex-toggle-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-.ex-variant-name { font-weight: 700; font-size: 13px; margin-bottom: 6px; color: var(--text); }
+.ex-toggle-btn.active { background: var(--accent); color: #fff; }
+.ex-variant-name { font-weight: 500; font-size: 13px; margin-bottom: 8px; color: var(--text); }
 .ex-variant-tag {
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.4px;
   color: var(--accent);
@@ -599,30 +474,16 @@ body {
   margin-left: 4px;
 }
 
-/* tip / cuidado puntual del ejercicio (dentro del drawer de técnica) */
+/* tip / cuidado puntual (plano: ícono + texto, sin caja) */
 .ex-tip {
-  background: var(--note-bg);
-  border: 1px solid var(--note-border);
-  border-radius: var(--radius-sm);
-  padding: 6px 8px;
-  margin-bottom: 8px;
+  display: flex;
+  gap: 7px;
+  margin: 13px 0;
   font-size: 12px;
   line-height: 1.5;
-  color: var(--text);
+  color: var(--text-muted);
 }
-.ex-tip .note-icon { margin-right: 4px; }
-
-.note-box {
-  background: var(--note-bg);
-  border: 1px solid var(--note-border);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  margin-top: 8px;
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--text);
-}
-.note-box .note-icon { margin-right: 4px; }
+.ex-tip .note-icon { flex-shrink: 0; }
 
 /* === GLOSSARY === */
 .glossary-item {
@@ -708,7 +569,7 @@ body {
 }
 .overlay-btns button:active { transform: scale(0.97); }
 .overlay-btns .btn-danger {
-  background: var(--accent);
+  background: #dc2626;
   color: #fff;
-  border-color: var(--accent);
+  border-color: #dc2626;
 }
