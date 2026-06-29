@@ -489,16 +489,34 @@ body {
 .tag-rest { background: var(--blue-light); color: var(--blue); }
 .tag-ss { background: var(--accent-light); color: var(--accent); }
 
-/* alternativa del ejercicio (dentro del drawer de técnica) */
-.ex-alt {
-  background: var(--purple-light);
-  border-radius: var(--radius-sm);
+/* toggle Principal / Alternativa (dentro del drawer de técnica) */
+.ex-toggle { display: flex; gap: 6px; margin-bottom: 10px; }
+.ex-toggle-btn {
+  flex: 1;
   padding: 6px 8px;
-  margin-bottom: 8px;
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
   color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
 }
-.ex-alt strong { color: var(--purple); }
+.ex-toggle-btn:hover { border-color: var(--accent); color: var(--text); }
+.ex-toggle-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.ex-variant-name { font-weight: 700; font-size: 12px; margin-bottom: 6px; color: var(--text); }
+.ex-variant-tag {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 4px;
+}
 
 /* tip / cuidado puntual del ejercicio (dentro del drawer de técnica) */
 .ex-tip {
