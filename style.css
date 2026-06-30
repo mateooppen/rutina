@@ -395,6 +395,19 @@ body {
 }
 .ex-head:active { background: var(--bg-card-alt); }
 .ex-gr { flex: 1; min-width: 0; }
+.ex-thumb {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ex-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ex-thumb-empty { background: var(--bg-card-alt); font-size: 20px; }
 .ex-name { font-size: 15px; font-weight: 500; color: var(--accent); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .ex-meta { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
 .ex-body { display: none; padding: 2px 18px 16px; }

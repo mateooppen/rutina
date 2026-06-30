@@ -140,7 +140,7 @@ const routine = [
         { name: 'Press de pecho en máquina', sets: '3 × 12', rir: 'RIR 3', rest: '60s', alt: { name: 'Press de pecho con mancuernas', steps: ['Acostada en un banco, mancuernas a la altura del pecho con las palmas hacia los pies.', 'Empujá hacia arriba juntando levemente las mancuernas, sin bloquear de golpe los codos.', 'Bajá controlada hasta sentir el estiramiento del pecho.', 'Mantené las muñecas firmes y los hombros apoyados en el banco.'] }, steps: ['Ajustá el asiento para que las manijas queden a la altura media del pecho.', 'Apoyá bien la espalda en el respaldo y juntá levemente las escápulas.', 'Empujá al frente sin bloquear de golpe los codos.', 'Volvé controlada sintiendo el estiramiento del pecho.'], img: '' },
         { name: 'Jalón al pecho en polea', sets: '3 × 12', rir: 'RIR 3', rest: '60s', alt: { name: 'Remo con mancuerna', steps: ['Apoyá una mano y la rodilla del mismo lado en un banco, con la espalda recta y casi paralela al piso.', 'Con la otra mano sostené la mancuerna con el brazo estirado.', 'Traccioná llevando el codo hacia atrás pegado al cuerpo, juntando la escápula.', 'Bajá controlada estirando el brazo.'] }, steps: ['Sentate con los muslos fijados bajo el soporte y tomá la barra un poco más ancho que los hombros.', 'Llevá la barra a la parte alta del pecho tirando con los codos hacia abajo y atrás.', 'Pensá en juntar las escápulas, sin encoger los hombros hacia las orejas.', 'Volvé arriba controlada estirando bien la espalda.'], img: '' },
         { name: 'Press de hombros en máquina', sets: '3 × 12', rir: 'RIR 3', rest: '60s', alt: { name: 'Elevaciones laterales', steps: ['Parada o sentada, una mancuerna liviana en cada mano a los costados.', 'Subí los brazos hacia los lados hasta la altura de los hombros, con los codos apenas flexionados.', 'No encojas los hombros hacia las orejas ni uses impulso.', 'Bajá lento controlando el peso.'] }, steps: ['Sentate con la espalda firme contra el respaldo, sin apoyar carga sobre el cuello.', 'Tomá las manijas a la altura de los hombros.', 'Empujá hacia arriba sin bloquear de golpe los codos.', 'Bajá controlada hasta la altura de los hombros, sin encoger los hombros hacia las orejas.'], img: '' },
-        { name: 'Plancha frontal', sets: '3 × 20-30s', rir: '—', rest: '45s', alt: '', steps: ['Apoyá los antebrazos bajo los hombros.', 'Formá una línea recta de la cabeza a los talones, sin levantar la cola ni hundir la cadera.', 'Apretá abdomen y glúteos, con el cuello largo y la mirada al piso.', 'Respirá normal, no aguantes el aire.'], img: '' }
+        { name: 'Pallof press en polea', sets: '3 × 10/lado', rir: '—', rest: '45s', alt: { name: 'Pallof press con banda', steps: ['Enganchá una banda elástica a un punto fijo a la altura del pecho.', 'Parada de costado a la banda, tomala con las dos manos y separate un paso para tensarla.', 'Estirá los brazos al frente resistiendo que la banda te rote el torso.', 'Volvé con control al pecho y, al terminar las reps, cambiá de lado.'] }, tip: 'No dejes que la polea te gire el tronco: el abdomen trabaja para mantenerte firme y de frente.', steps: ['Colocá la polea a la altura del pecho y tomá el agarre con las dos manos, parada de costado a la polea.', 'Separate un paso para tensar el cable; pies al ancho de hombros y rodillas apenas flexionadas.', 'Estirá los brazos al frente sin permitir que el cable te rote el torso.', 'Volvé al pecho con control, mantené el abdomen firme y, al terminar las reps, cambiá de lado.'], img: '' }
       ]
     },
     cool: {
@@ -168,7 +168,7 @@ const routine = [
       meta: 'Bloque de Fuerza · Bici ya hecha en el calentamiento',
       isTable: true,
       exercises: [
-        { name: 'Hip thrust', sets: '3 × 12', rir: 'RIR 3', rest: '60s', alt: { name: 'Puente de glúteo con peso', steps: ['Acostate boca arriba con rodillas flexionadas y pies apoyados; apoyá una pesa sobre la cadera.', 'Empujá con los talones subiendo la cadera y apretando los glúteos.', 'Formá una línea recta de rodillas a hombros, sin arquear la lumbar.', 'Bajá controlada.'] }, tip: 'El empuje lo hacen los glúteos, nunca la espalda baja ni el cuello.', steps: ['Apoyá la parte media de la espalda (escápulas) contra un banco estable.', 'Colocá el peso sobre la cadera con un pad para no lastimarte.', 'Empujá la cadera al techo apretando los glúteos, sin arquear la lumbar.', 'Sostené 1 segundo arriba con el mentón cerca del pecho y la mirada al frente.'], img: '' },
+        { name: 'Abducción de cadera (máquina)', sets: '3 × 12', rir: 'RIR 3', rest: '60s', alt: { name: 'Abducción de cadera con banda', steps: ['Sentada o de pie, colocá una banda elástica alrededor de los muslos, justo arriba de las rodillas.', 'Abrí las rodillas hacia afuera venciendo la resistencia de la banda.', 'Apretá el glúteo medio al final del recorrido.', 'Volvé controlada sin dejar que la banda te cierre las piernas de golpe.'] }, tip: 'Mantené la espalda apoyada y el torso quieto: el movimiento sale de los glúteos, abriendo en un rango cómodo.', steps: ['Sentate en la máquina con la espalda apoyada y los almohadones contra la parte externa de los muslos.', 'Abrí las piernas empujando las rodillas hacia afuera contra la resistencia.', 'Apretá los glúteos al final de la apertura, hasta donde te sea cómodo.', 'Volvé controlada sin dejar que las piernas se cierren de golpe.'], img: '' },
         { name: 'Extensión de cuádriceps', sets: '3 × 12', rir: 'RIR 3', rest: '60s', alt: { name: 'Sentadilla a banco', steps: ['Parada de espaldas a un banco, pies al ancho de hombros.', 'Bajá llevando la cadera atrás hasta apoyar apenas la cola en el banco, en rango cómodo.', 'Mantené las rodillas alineadas con los pies, sin que caigan hacia adentro.', 'Subí empujando con los talones, sin bloquear de golpe.'] }, steps: ['Ajustá el respaldo para que la rodilla quede alineada con el eje de giro de la máquina.', 'Colocá el rodillo sobre la parte baja de la canilla, arriba del tobillo.', 'Estirá las piernas con control dentro de un rango cómodo, sin llegar a un punto que moleste la rodilla.', 'Bajá lento, sin dejar caer el peso de golpe.'], img: '' },
         { name: 'Remo en máquina sentada', sets: '3 × 12', rir: 'RIR 3', rest: '60s', alt: { name: 'Remo con mancuerna', steps: ['Apoyá una mano y la rodilla del mismo lado en un banco, con la espalda recta y casi paralela al piso.', 'Con la otra mano sostené la mancuerna con el brazo estirado.', 'Traccioná llevando el codo hacia atrás pegado al cuerpo, juntando la escápula.', 'Bajá controlada estirando el brazo.'] }, steps: ['Sentate con el pecho apoyado en el soporte y los pies firmes.', 'Traccioná las manijas llevando los codos hacia atrás.', 'Juntá las escápulas, sin encoger los hombros hacia las orejas.', 'Volvé controlada estirando la espalda al frente.'], img: '' },
         { name: 'Aperturas en pec deck', sets: '3 × 12', rir: 'RIR 3', rest: '60s', alt: { name: 'Press de pecho con mancuernas', steps: ['Acostada en un banco, mancuernas a la altura del pecho con las palmas hacia los pies.', 'Empujá hacia arriba juntando levemente las mancuernas, sin bloquear de golpe los codos.', 'Bajá controlada hasta sentir el estiramiento del pecho.', 'Mantené las muñecas firmes y los hombros apoyados en el banco.'] }, steps: ['Sentate con la espalda apoyada y los antebrazos contra los almohadones.', 'Juntá los brazos al frente describiendo un arco, apretando el pecho.', 'No lleves los codos más atrás de la línea de los hombros.', 'Volvé controlada sintiendo el estiramiento del pecho.'], img: '' },
@@ -243,9 +243,9 @@ const EXERCISE_MEDIA = {
   'Press de pecho en máquina':                          'chest_press.gif',
   'Jalón al pecho en polea':                            'lat_pulldown.gif',
   'Press de hombros en máquina':                        'machine_shoulder_press.gif',
-  'Plancha frontal':                                    'plank.gif',
+  'Pallof press en polea':                              'pallof_press.gif',
   // --- Día B ---
-  'Hip thrust':                                         'hip_thrust.png',
+  'Abducción de cadera (máquina)':                      'hip_abduction.gif',
   'Extensión de cuádriceps':                            'leg_extension.gif',
   'Remo en máquina sentada':                            'seated_row.gif',
   'Aperturas en pec deck':                              'pec_deck_fly.gif',
@@ -373,13 +373,26 @@ function metaText(e, isMain) {
   return parts.filter(p => p && p !== '—').join(' · ');
 }
 
+// Miniatura del ejercicio a la izquierda del nombre. Usa una versión estática
+// (primer frame, en assets/thumbs/) para no animar decenas de GIFs a la vez; el
+// GIF animado completo se ve al desplegar el detalle. Sin imagen → placeholder.
+function thumbHTML(e) {
+  const gif = getMedia(e.name);
+  if (gif) {
+    const thumb = 'thumbs/' + gif.replace(/\.\w+$/, '.jpg');
+    return `<div class="ex-thumb"><img src="${MEDIA_PATH}${thumb}" alt="" loading="lazy"></div>`;
+  }
+  return `<div class="ex-thumb ex-thumb-empty" aria-hidden="true">🏋️</div>`;
+}
+
 // Fila plana de ejercicio (mismo componente para principal y calentamiento/calma).
-// Nombre en acento + descripción atenuada + chevron a la derecha; el detalle
-// (pasos + toggle alternativa + tip + imagen) se despliega debajo, sin cajas.
+// Miniatura + nombre en acento + descripción atenuada + chevron a la derecha; el
+// detalle (pasos + toggle alternativa + tip + imagen) se despliega debajo, sin cajas.
 function exRowHTML(e, dayIdx, eIdx, prefix, isMain) {
   return `
             <div class="ex" data-acc data-acc-group="ex-${dayIdx}">
               <div class="ex-head" data-acc-head>
+                ${thumbHTML(e)}
                 <div class="ex-gr">
                   <div class="ex-name">${ssBadge(e)}${e.name}</div>
                   <div class="ex-meta">${metaText(e, isMain)}</div>
