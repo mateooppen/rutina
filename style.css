@@ -338,6 +338,40 @@ body {
 }
 .section-toggle.open + .section-content { display: block; }
 
+/* === SELECTOR DE RUTINA (gimnasio / en casa) === */
+.rt-switch {
+  display: flex;
+  gap: 4px;
+  margin: 10px 18px 14px;
+  background: var(--bg-card-alt);
+  border-radius: 10px;
+  padding: 3px;
+}
+/* con una sola rutina registrada el selector se oculta (display:flex pisaría a [hidden]) */
+.rt-switch[hidden] { display: none; }
+.rt-btn {
+  flex: 1;
+  min-height: 40px;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font);
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+  -webkit-tap-highlight-color: transparent;
+}
+.rt-btn.active { background: var(--accent); color: #fff; }
+.rt-empty {
+  padding: 32px 18px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
 /* === RUTINA: LISTA PLANA (sin tarjetas, división solo vertical) === */
 
 /* chevron compartido por día / subsección / ejercicio, siempre al borde derecho */

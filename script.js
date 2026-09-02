@@ -116,8 +116,11 @@ function doReset() {
   renderTracker();
 }
 
-// === ROUTINE DATA WITH DETAILED TECH STEPS ===
-const routine = [
+// === RUTINA: GIMNASIO (días con técnica detallada) ===
+// ⚠️ TEMPORAL: hoy NO está registrada en ROUTINES (ver más abajo) porque Vero
+// entrena solo en casa. Se conserva completa e intacta para reactivarla cuando
+// vuelva al gimnasio: alcanza con descomentar la línea `gym` en ROUTINES.
+const GYM_DAYS = [
   {
     short: 'A',
     dayLabel: 'Full body',
@@ -220,12 +223,531 @@ const routine = [
   }
 ];
 
-// DAYS_DATA y TOTAL_DAYS derivados de `routine`: una sola fuente de verdad para
-// el resumen del tracker (arriba) y el detalle de la rutina.
-const DAYS_DATA = routine.map((d, i) => ({
-  id: i, short: d.short, title: d.dayLabel, name: d.summary, dur: d.dur
-}));
-const TOTAL_DAYS = DAYS_DATA.length;
+// === RUTINA: EN CASA (kit de body pump: barra larga, barras cortas y discos) ===
+// Mismo esquema que GYM_DAYS. Debe tener la MISMA cantidad de días que las demás:
+// el progreso semanal es compartido.
+//
+// A propósito los ejercicios NO llevan `alt`: la alternativa existe para el gimnasio,
+// donde una máquina puede estar ocupada o no estar. En casa el equipamiento es fijo,
+// así que no aplica y el drawer se muestra sin el toggle Principal/Alternativa.
+//
+// Pendiente: asignar imágenes en EXERCISE_MEDIA (todavía sin GIFs). Mientras tanto
+// las filas muestran el placeholder de miniatura y el detalle va sin imagen.
+const HOME_DAYS = [
+  {
+    short: 'A',
+    dayLabel: 'Full body',
+    focus: 'Cuerpo completo · cuádriceps, pecho y espalda',
+    summary: 'Cuádriceps, pecho y espalda',
+    dur: '~40 min',
+    warmup: {
+      meta: '~7 min',
+      exercises: [
+        {
+          name: 'Movilidad articular de pie',
+          sets: '5 min',
+          note: 'Entrada en calor sin impacto.',
+          steps: [
+            'Empezá con 10 círculos de hombros hacia atrás y 10 círculos amplios de brazos.',
+            'Seguí con 10 rotaciones suaves de torso hacia cada lado, con la cadera quieta.',
+            'Hacé 10 medias sentadillas suaves, bajando solo hasta donde te resulte cómodo.',
+            'Cerrá con 10 elevaciones de talones y 8 círculos de tobillo por pie, apoyada en la silla.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Puente de glúteos sin peso',
+          sets: '2 × 12',
+          note: 'Activación de glúteos y cadera.',
+          steps: [
+            'Acostate boca arriba con las rodillas flexionadas y los pies apoyados al ancho de cadera.',
+            'Apoyá la cabeza relajada en la colchoneta, sin empujar con la nuca.',
+            'Subí la cadera apretando los glúteos hasta alinear rodillas, cadera y hombros.',
+            'Bajá lento y controlado, vértebra por vértebra.'
+          ],
+          img: ''
+        }
+      ]
+    },
+    main: {
+      meta: 'Bloque de Fuerza',
+      isTable: true,
+      exercises: [
+        {
+          name: 'Sentadilla a la silla con peso corporal',
+          sets: '3 × 12',
+          rir: 'RIR 3',
+          rest: '90s',
+          tip: 'La silla marca el límite del rango: no bajes más profundo. Rodillas siempre apuntando a la punta de los pies.',
+          steps: [
+            'Parate de espaldas a la silla, pies al ancho de hombros y brazos al frente.',
+            'Separá los pies con las puntas apenas hacia afuera.',
+            'Bajá lento empujando la cadera hacia atrás hasta apoyarte apenas en la silla.',
+            'Subí empujando el piso con todo el pie, sin que las rodillas caigan hacia adentro.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Flexiones en la pared',
+          sets: '3 × 12',
+          rir: 'RIR 3',
+          rest: '60s',
+          superset: 'Superserie con Remo a un brazo con disco',
+          tip: 'Mantené el cuello largo: mirá hacia la pared, sin encoger los hombros hacia las orejas.',
+          steps: [
+            'Apoyá las manos en la pared a la altura del pecho, algo más abiertas que los hombros.',
+            'Alejá los pies uno o dos pasos y mantené el cuerpo en línea recta.',
+            'Bajá el pecho hacia la pared flexionando los codos, controlando el movimiento.',
+            'Empujá la pared para volver, sin bloquear los codos de golpe.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Remo a un brazo con disco',
+          sets: '3 × 12 por lado',
+          rir: 'RIR 3',
+          rest: '60s',
+          superset: 'Superserie con Flexiones en la pared',
+          tip: 'Tirá con la espalda, no con el cuello: los hombros se mantienen lejos de las orejas.',
+          steps: [
+            'Apoyá una mano y la rodilla del mismo lado sobre la silla, con la espalda recta.',
+            'Agarrá el disco con la otra mano y dejala colgar hacia el piso.',
+            'Llevá el disco hacia la cadera, llevando el codo pegado al cuerpo.',
+            'Bajá lento hasta estirar el brazo, con la mirada al piso y el cuello neutro.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Peso muerto rumano con barra larga',
+          sets: '3 × 10',
+          rir: 'RIR 3',
+          rest: '90s',
+          tip: 'Las rodillas quedan apenas flexionadas y firmes: el movimiento sale de la cadera, no de las rodillas.',
+          steps: [
+            'Parate con los pies al ancho de cadera, agarrando la barra al frente de los muslos.',
+            'Con la espalda recta, empujá la cadera hacia atrás bajando la barra pegada a las piernas.',
+            'Bajá hasta sentir el estiramiento atrás de los muslos, sin redondear la espalda.',
+            'Subí apretando los glúteos hasta quedar bien derecha.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Marcha supina con talón al piso',
+          sets: '3 × 8 por lado',
+          rir: '—',
+          rest: '45s',
+          tip: 'La cabeza queda apoyada y relajada todo el tiempo: nada de tensión en el cuello.',
+          steps: [
+            'Acostate boca arriba con las rodillas flexionadas a 90 grados y la zona lumbar apoyada.',
+            'Apretá el abdomen para sostener la espalda baja en contacto con la colchoneta.',
+            'Bajá un talón al piso lento, manteniendo el abdomen firme.',
+            'Volvé y alterná con la otra pierna, sin despegar la espalda baja.'
+          ],
+          img: ''
+        }
+      ]
+    },
+    cool: {
+      meta: '~5 min',
+      exercises: [
+        {
+          name: 'Estiramiento de cuádriceps de pie con apoyo',
+          sets: '45s por lado',
+          note: 'Usá la pared o la silla de apoyo.',
+          steps: [
+            'Apoyá una mano en la pared para mantener el equilibrio.',
+            'Llevá un talón hacia el glúteo agarrando el empeine con la mano libre.',
+            'Mantené las rodillas juntas y la cadera apenas adelante, sin arquear la espalda.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Estiramiento de pecho en la pared',
+          sets: '45s por lado',
+          note: 'Suave, sin dolor en el hombro.',
+          steps: [
+            'Apoyá el antebrazo en la pared con el codo a la altura del hombro.',
+            'Girá el cuerpo despacio hacia el lado contrario hasta sentir el estiramiento en el pecho.',
+            'Respirá profundo y mantené los hombros bajos, lejos de las orejas.'
+          ],
+          img: ''
+        }
+      ]
+    }
+  },
+  {
+    short: 'B',
+    dayLabel: 'Full body',
+    focus: 'Cuerpo completo · piernas, hombros y glúteos',
+    summary: 'Piernas, hombros y glúteos',
+    dur: '~40 min',
+    warmup: {
+      meta: '~7 min',
+      exercises: [
+        {
+          name: 'Movilidad de hombros y cadera con apoyo',
+          sets: '5 min',
+          note: 'Entrada en calor sin impacto.',
+          steps: [
+            'Apoyada en el respaldo de la silla, hacé 10 balanceos suaves de pierna al frente y atrás por lado.',
+            'Seguí con 10 círculos de cadera hacia cada lado, con los pies fijos en el piso.',
+            'Hacé 10 círculos de hombros hacia atrás y 10 aperturas de brazos al pecho.',
+            'Cerrá con 10 elevaciones de talones lentas, apoyada en la silla.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Retracciones de omóplatos en la pared',
+          sets: '2 × 12',
+          note: 'Activación de espalda alta.',
+          steps: [
+            'Parate de espaldas a la pared con los brazos en W, apoyando antebrazos si podés.',
+            'Juntá los omóplatos como si quisieras sostener un lápiz entre ellos.',
+            'Mantené 2 segundos y aflojá, sin encoger los hombros ni tensar el cuello.'
+          ],
+          img: ''
+        }
+      ]
+    },
+    main: {
+      meta: 'Bloque de Fuerza',
+      isTable: true,
+      exercises: [
+        {
+          name: 'Zancada estática corta con apoyo en silla',
+          sets: '3 × 10 por lado',
+          rir: 'RIR 3',
+          rest: '90s',
+          tip: 'Paso corto y rango parcial: la rodilla de adelante no pasa la punta del pie ni cae hacia adentro.',
+          steps: [
+            'Parate al lado de la silla y apoyá una mano en el respaldo.',
+            'Dá un paso corto hacia atrás con una pierna y quedate en esa posición.',
+            'Bajá un poco flexionando ambas rodillas, sin que la de adelante pase la punta del pie.',
+            'Subí empujando con la pierna de adelante y completá las repeticiones antes de cambiar.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Press de pecho en el piso con discos',
+          sets: '3 × 12',
+          rir: 'RIR 3',
+          rest: '60s',
+          superset: 'Superserie con Puente de glúteos con disco',
+          tip: 'La cabeza y la espalda quedan siempre apoyadas: es la posición más segura para tu cervical.',
+          steps: [
+            'Acostate boca arriba con las rodillas flexionadas y un disco en cada mano.',
+            'Con los codos apoyados en el piso, ubicá los discos a la altura del pecho.',
+            'Empujá los discos hacia el techo hasta estirar los brazos, sin despegar la cabeza.',
+            'Bajá lento hasta que los codos toquen suave el piso.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Puente de glúteos con disco',
+          sets: '3 × 12',
+          rir: 'RIR 3',
+          rest: '60s',
+          superset: 'Superserie con Press de pecho en el piso con discos',
+          tip: 'El peso apoya en la cadera, nunca cerca de las costillas. El cuello queda relajado en el piso.',
+          steps: [
+            'Acostate boca arriba con las rodillas flexionadas y un disco apoyado sobre la cadera.',
+            'Sostené el disco con las manos y apoyá bien los pies al ancho de cadera.',
+            'Subí la cadera apretando los glúteos hasta alinear rodillas, cadera y hombros.',
+            'Bajá lento sin apoyar del todo y repetí.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Press de hombros sentada con espalda en la pared',
+          sets: '3 × 10',
+          rir: 'RIR 3',
+          rest: '90s',
+          tip: 'La espalda y la cabeza se apoyan en la pared: subí solo hasta donde no encojas los hombros.',
+          steps: [
+            'Sentate en el piso o en la silla con la espalda y la cabeza apoyadas en la pared.',
+            'Agarrá un disco en cada mano a la altura de los hombros, codos apuntando abajo.',
+            'Empujá los discos hacia arriba sin despegar la espalda de la pared.',
+            'Bajá lento hasta la altura de los hombros, manteniendo el cuello relajado.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Plancha frontal con rodillas apoyadas',
+          sets: '3 × 20-30s',
+          rir: '—',
+          rest: '45s',
+          tip: 'Mirá al piso para que el cuello siga la línea de la espalda: no levantes la cabeza.',
+          steps: [
+            'Apoyá los antebrazos y las rodillas en la colchoneta, codos debajo de los hombros.',
+            'Adelantá un poco el peso hasta que el cuerpo quede en línea de rodillas a cabeza.',
+            'Apretá el abdomen y los glúteos, respirando de forma continua.',
+            'Mantené el tiempo indicado con la mirada al piso y el cuello neutro.'
+          ],
+          img: ''
+        }
+      ]
+    },
+    cool: {
+      meta: '~5 min',
+      exercises: [
+        {
+          name: 'Estiramiento de isquiotibiales con talón en la silla',
+          sets: '45s por lado',
+          note: 'Espalda recta, sin rebotar.',
+          steps: [
+            'Apoyá un talón sobre el asiento de la silla con la pierna casi estirada.',
+            'Con la espalda recta, inclinate apenas hacia adelante desde la cadera.',
+            'Mantené la posición respirando profundo, sin forzar la rodilla.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Estiramiento de glúteo acostada (figura 4)',
+          sets: '45s por lado',
+          note: 'Cabeza siempre apoyada.',
+          steps: [
+            'Acostate boca arriba y cruzá un tobillo sobre la rodilla contraria.',
+            'Agarrá el muslo de la pierna de apoyo y llevalo suave hacia el pecho.',
+            'Mantené la cabeza y los hombros apoyados, sin levantar el cuello.'
+          ],
+          img: ''
+        }
+      ]
+    }
+  },
+  {
+    short: 'C',
+    dayLabel: 'Full body',
+    focus: 'Cuerpo completo · cadena posterior, pecho y dorsales',
+    summary: 'Glúteos, pecho y dorsales',
+    dur: '~40 min',
+    warmup: {
+      meta: '~7 min',
+      exercises: [
+        {
+          name: 'Movilidad de cadera y tobillo con apoyo',
+          sets: '5 min',
+          note: 'Entrada en calor sin impacto.',
+          steps: [
+            'Apoyada en la silla, hacé 10 balanceos suaves de pierna hacia adelante y atrás por lado.',
+            'Seguí con 8 círculos de tobillo por pie, en cada dirección.',
+            'Hacé 10 medias sentadillas suaves, sin bajar más de lo cómodo.',
+            'Cerrá con 10 rotaciones de torso y 10 círculos de hombros hacia atrás.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Almejas acostada de lado',
+          sets: '2 × 12 por lado',
+          note: 'Activación de glúteo medio.',
+          steps: [
+            'Acostate de lado con las rodillas flexionadas y la cabeza apoyada en el brazo.',
+            'Con los talones juntos, abrí la rodilla de arriba como una almeja.',
+            'Bajá lento sin rotar la cadera hacia atrás y repetí.'
+          ],
+          img: ''
+        }
+      ]
+    },
+    main: {
+      meta: 'Bloque de Fuerza',
+      isTable: true,
+      exercises: [
+        {
+          name: 'Sentadilla goblet a la silla',
+          sets: '3 × 12',
+          rir: 'RIR 3',
+          rest: '90s',
+          tip: 'Sostené el disco pegado al pecho y el torso erguido: si te vas hacia adelante, usá menos peso.',
+          steps: [
+            'Parate de espaldas a la silla con un disco agarrado contra el pecho.',
+            'Separá los pies al ancho de hombros, con las puntas apenas hacia afuera.',
+            'Bajá lento empujando la cadera hacia atrás hasta rozar la silla, sin sentarte del todo.',
+            'Subí empujando con toda la planta del pie, cuidando que las rodillas no caigan hacia adentro.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Puente de glúteos con marcha',
+          sets: '3 × 10 por lado',
+          rir: 'RIR 3',
+          rest: '90s',
+          tip: 'Mantené la cadera arriba y pareja: si se te cae de un lado, bajá el rango o apoyá el pie antes.',
+          steps: [
+            'Acostate boca arriba con las rodillas flexionadas y los pies apoyados al ancho de cadera.',
+            'Subí la cadera apretando los glúteos y mantenela arriba.',
+            'Despegá un pie del piso llevando la rodilla hacia el pecho, sin que caiga la cadera.',
+            'Apoyá y alterná con la otra pierna, con el cuello relajado en la colchoneta.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Aperturas con discos en el piso',
+          sets: '3 × 12',
+          rir: 'RIR 3',
+          rest: '60s',
+          superset: 'Superserie con Pullover con disco en el piso',
+          tip: 'El piso frena el rango por vos: no busques bajar más allá de que los codos lo toquen. La cabeza queda apoyada todo el tiempo.',
+          steps: [
+            'Acostate boca arriba con las rodillas flexionadas y un disco en cada mano.',
+            'Estirá los brazos hacia el techo con los codos apenas flexionados y las palmas enfrentadas.',
+            'Abrí los brazos hacia los costados bajando lento hasta que los codos toquen suave el piso.',
+            'Volvé a juntarlos arriba apretando el pecho, sin chocar los discos.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Pullover con disco en el piso',
+          sets: '3 × 12',
+          rir: 'RIR 2',
+          rest: '60s',
+          superset: 'Superserie con Aperturas con discos en el piso',
+          tip: 'Bajá solo hasta donde la espalda baja no se despegue del piso. La cabeza queda siempre apoyada.',
+          steps: [
+            'Acostate boca arriba con las rodillas flexionadas y un disco agarrado a dos manos.',
+            'Estirá los brazos hacia el techo por encima del pecho, cabeza apoyada.',
+            'Bajá el disco lento por detrás de la cabeza con los codos apenas flexionados.',
+            'Volvé a subir hasta el pecho apretando los dorsales, sin arquear la espalda baja.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Elevaciones laterales con discos',
+          sets: '3 × 12',
+          rir: 'RIR 2',
+          rest: '60s',
+          tip: 'Subí solo hasta la altura de los hombros y sin encogerlos: si el trapecio tira del cuello, usá menos peso.',
+          steps: [
+            'Parate con un disco en cada mano a los costados del cuerpo.',
+            'Con los codos apenas flexionados, subí los brazos hacia los costados.',
+            'Frená a la altura de los hombros, sin encogerlos hacia las orejas.',
+            'Bajá lento y controlado hasta los muslos.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Perro de caza (bird-dog)',
+          sets: '3 × 8 por lado',
+          rir: '—',
+          rest: '45s',
+          tip: 'La mirada va al piso todo el tiempo: el cuello sigue la línea de la espalda, no la levantes.',
+          steps: [
+            'Ponete en cuatro apoyos, con las manos bajo los hombros y las rodillas bajo la cadera.',
+            'Apretá el abdomen y estirá lento un brazo al frente y la pierna contraria atrás.',
+            'Mantené 2 segundos con la cadera estable, sin arquear la espalda.',
+            'Volvé con control y repetí con el otro lado.'
+          ],
+          img: ''
+        }
+      ]
+    },
+    cool: {
+      meta: '~5 min',
+      exercises: [
+        {
+          name: 'Estiramiento de dorsales con manos en la silla',
+          sets: '1 min',
+          note: 'Cabeza entre los brazos, sin colgarla.',
+          steps: [
+            'Apoyá las dos manos en el asiento de la silla y caminá los pies hacia atrás.',
+            'Bajá el pecho entre los brazos con la espalda larga, cadera hacia atrás.',
+            'Dejá la cabeza alineada entre los brazos, respirando profundo.'
+          ],
+          img: ''
+        },
+        {
+          name: 'Gato-camello suave',
+          sets: '8 reps lentas',
+          note: 'Movimiento amplio pero sin forzar.',
+          steps: [
+            'Ponete en cuatro apoyos con las manos bajo los hombros.',
+            'Al exhalar, redondeá la espalda mirando hacia el ombligo, sin tirar del cuello.',
+            'Al inhalar, dejá caer suave la panza y llevá la mirada apenas al frente, sin extender el cuello al máximo.'
+          ],
+          img: ''
+        }
+      ]
+    }
+  }
+];
+
+// === REGISTRO DE RUTINAS ===
+// El progreso semanal (semanas, fases y días cumplidos) es COMPARTIDO entre rutinas:
+// se sigue guardando en STORAGE_KEY. Acá solo se recuerda cuál está seleccionada.
+//
+// ⚠️ TEMPORAL: la rutina de GIMNASIO está comentada a propósito porque Vero está
+// entrenando solo en casa. Sus días (GYM_DAYS, más arriba) se conservan intactos.
+// Para volver a habilitarla cuando regrese al gimnasio: descomentá la línea `gym`.
+// Con una sola rutina registrada, el selector se oculta solo (ver renderRoutineSwitch);
+// al descomentarla vuelve a aparecer automáticamente.
+const ROUTINES = {
+  // gym:  { id: 'gym',  label: 'Gimnasio', sub: '3 días · Full body · Acondicionamiento general', days: GYM_DAYS },
+  casa: { id: 'casa', label: 'En casa',  sub: '3 días · Full body · En casa, sin máquinas',     days: HOME_DAYS },
+};
+const ROUTINE_KEY = 'rutina_vero_activa';
+
+function loadActiveRoutine() {
+  try {
+    const v = localStorage.getItem(ROUTINE_KEY);
+    if (v && ROUTINES[v]) return v;
+  } catch (e) {}
+  // Cae a la primera rutina registrada (así sigue funcionando aunque alguna esté
+  // comentada, o si quedó guardada una rutina que ya no está disponible).
+  return Object.keys(ROUTINES)[0];
+}
+
+let activeRoutineId = loadActiveRoutine();
+
+// `routine` son los días de la rutina activa. DAYS_DATA/TOTAL_DAYS se derivan de
+// ahí (fuente única de verdad); si la rutina activa todavía no tiene días
+// cargados, el tracker cae a los de gimnasio para no romperse.
+function deriveDaysData(days) {
+  return days.map((d, i) => ({ id: i, short: d.short, title: d.dayLabel, name: d.summary, dur: d.dur }));
+}
+
+let routine = ROUTINES[activeRoutineId].days;
+let DAYS_DATA = deriveDaysData(routine.length ? routine : GYM_DAYS);
+let TOTAL_DAYS = DAYS_DATA.length;
+
+// Cambia la rutina activa y re-renderiza todo lo que depende de ella.
+function setRoutine(id) {
+  if (!ROUTINES[id] || id === activeRoutineId) return;
+  activeRoutineId = id;
+  try { localStorage.setItem(ROUTINE_KEY, id); } catch (e) {}
+  routine = ROUTINES[id].days;
+  DAYS_DATA = deriveDaysData(routine.length ? routine : GYM_DAYS);
+  TOTAL_DAYS = DAYS_DATA.length;
+  applyRoutineChrome();
+  renderRoutine();
+  renderTracker();
+}
+
+// Sincroniza el subtítulo del encabezado y el estado del selector.
+function applyRoutineChrome() {
+  const sub = document.querySelector('.header .sub');
+  if (sub) sub.textContent = ROUTINES[activeRoutineId].sub;
+  document.querySelectorAll('.rt-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.routine === activeRoutineId);
+  });
+}
+
+// Selector segmentado de rutina (arriba de la pestaña Rutina).
+// Con una sola rutina registrada no hay nada que elegir: se oculta para no meter
+// ruido visual. Vuelve a aparecer solo al registrar una segunda rutina.
+function renderRoutineSwitch() {
+  const el = document.getElementById('routineSwitch');
+  if (!el) return;
+  const rutinas = Object.values(ROUTINES);
+  el.hidden = rutinas.length < 2;
+  el.innerHTML = el.hidden ? '' : rutinas.map(r =>
+    `<button type="button" class="rt-btn${r.id === activeRoutineId ? ' active' : ''}" data-routine="${r.id}">${r.label}</button>`
+  ).join('');
+}
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-routine]');
+  if (btn) setRoutine(btn.dataset.routine);
+});
 
 // === MAPA CENTRAL DE IMÁGENES ===
 // Fuente única de verdad. Las claves coinciden EXACTAMENTE con el nombre del ejercicio en `routine`.
@@ -272,13 +794,53 @@ const EXERCISE_MEDIA = {
   'Estiramiento de dorsales':                           'stretch_lat.gif',
   'Estiramiento de isquiotibiales en el suelo':         'stretch_hamstring.gif',
   'Estiramiento de tríceps':                            'stretch_triceps.gif',
+
+  // ============ RUTINA EN CASA ============
+  // --- Calentamiento / activación ---
+  'Puente de glúteos sin peso':                         'glute_bridge.gif',
+  // --- Día A ---
+  'Sentadilla a la silla con peso corporal':            'bodyweight_squat.png',
+  'Flexiones en la pared':                              'wall_pushup.gif',
+  'Remo a un brazo con disco':                          'dumbbell_row.gif',
+  'Peso muerto rumano con barra larga':                 'barbell_rdl.gif',
+  'Marcha supina con talón al piso':                    'dead_bug.gif',
+  // --- Día B ---
+  'Zancada estática corta con apoyo en silla':          'split_squat.gif',
+  'Press de pecho en el piso con discos':               'dumbbell_bench_press.gif',
+  'Puente de glúteos con disco':                        'glute_bridge.gif',
+  'Press de hombros sentada con espalda en la pared':   'shoulder_press.gif',
+  'Plancha frontal con rodillas apoyadas':              'plank.gif',
+  'Retracciones de omóplatos en la pared':              'scapular_retraction.gif',
+  // --- Día C ---
+  'Sentadilla goblet a la silla':                       'goblet_squat.gif',
+  'Puente de glúteos con marcha':                       'glute_bridge_march.gif',
+  'Aperturas con discos en el piso':                    'chest_fly.gif',
+  'Pullover con disco en el piso':                      'pullover.gif',
+  'Elevaciones laterales con discos':                   'lateral_raise.gif',
+  'Perro de caza (bird-dog)':                           'bird_dog.png',
+  'Almejas acostada de lado':                           'clamshell.gif',
+  // --- Estiramientos ---
+  'Estiramiento de cuádriceps de pie con apoyo':        'stretch_quad.png',
+  'Estiramiento de pecho en la pared':                  'stretch_pec.png',
+  'Estiramiento de isquiotibiales con talón en la silla': 'stretch_hamstring.gif',
+  'Estiramiento de glúteo acostada (figura 4)':         'stretch_glute.gif',
+  'Estiramiento de dorsales con manos en la silla':     'stretch_lat.gif',
+  'Gato-camello suave':                                 'cat_cow.gif',
+
   // --- Sin imagen a propósito (no hay un GIF único equivalente) ---
   'Bici fija — ritmo suave':                            '',
+  'Movilidad articular de pie':                         '',
+  'Movilidad de hombros y cadera con apoyo':            '',
+  'Movilidad de cadera y tobillo con apoyo':            '',
 };
 
 // Ejercicios sin GIF a propósito (no hay equivalente claro en el banco): no cuentan como pendientes.
+// Los circuitos de movilidad son secuencias de varios movimientos: ningún GIF único los representa.
 const MEDIA_SIN_MATCH = [
   'Bici fija — ritmo suave',
+  'Movilidad articular de pie',
+  'Movilidad de hombros y cadera con apoyo',
+  'Movilidad de cadera y tobillo con apoyo',
 ];
 
 // Busca el archivo de un ejercicio tolerando diferencias de mayúsculas, espacios
@@ -420,6 +982,13 @@ function subBlockHTML(block, icon, title, group, dayIdx, prefix) {
 }
 
 function renderRoutine() {
+  // Rutina todavía sin días cargados: estado vacío en vez de una lista en blanco.
+  if (!routine.length) {
+    document.getElementById('routineSection').innerHTML =
+      `<div class="rt-empty">Esta rutina todavía no está cargada.</div>`;
+    return;
+  }
+
   let html = '';
 
   routine.forEach((day, idx) => {
@@ -566,22 +1135,33 @@ function renderGlossary() {
 // le falta un bloque o un campo necesario para derivar el resumen del tracker.
 // No bloquea nada, solo emite console.warn.
 function validateData() {
-  routine.forEach((day, i) => {
-    ['warmup', 'main', 'cool'].forEach(block => {
-      if (!day[block]) {
-        console.warn(`⚠️ El día ${i} ("${day.dayLabel || '?'}") no tiene el bloque "${block}".`);
-      }
-    });
-    ['short', 'dayLabel', 'dur'].forEach(field => {
-      if (!day[field]) {
-        console.warn(`⚠️ El día ${i} no tiene el campo "${field}" (necesario para el tracker).`);
-      }
+  const cargadas = Object.values(ROUTINES).filter(r => r.days.length);
+  cargadas.forEach(r => {
+    r.days.forEach((day, i) => {
+      ['warmup', 'main', 'cool'].forEach(block => {
+        if (!day[block]) {
+          console.warn(`⚠️ [${r.id}] El día ${i} ("${day.dayLabel || '?'}") no tiene el bloque "${block}".`);
+        }
+      });
+      ['short', 'dayLabel', 'dur'].forEach(field => {
+        if (!day[field]) {
+          console.warn(`⚠️ [${r.id}] El día ${i} no tiene el campo "${field}" (necesario para el tracker).`);
+        }
+      });
     });
   });
+  // El progreso semanal es compartido: todas las rutinas cargadas deben tener
+  // la misma cantidad de días para que los días marcados coincidan.
+  const largos = [...new Set(cargadas.map(r => r.days.length))];
+  if (largos.length > 1) {
+    console.warn(`⚠️ Las rutinas cargadas tienen distinta cantidad de días (${cargadas.map(r => `${r.id}:${r.days.length}`).join(', ')}). El progreso es compartido, deberían coincidir.`);
+  }
 }
 
 // Init
 validateData();
+renderRoutineSwitch();
+applyRoutineChrome();
 renderTracker();
 renderRoutine();
 renderGlossary();
